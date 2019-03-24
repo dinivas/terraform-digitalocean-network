@@ -30,5 +30,6 @@ resource "openstack_networking_subnet_v2" "this" {
 data "openstack_networking_subnet_v2" "created_subnets" {
   count = "${length(var.subnets)}"
 
-  name    = "${element(openstack_networking_subnet_v2.this.*.name, count.index)}"
+  name       = "${element(openstack_networking_subnet_v2.this.*.name, count.index)}"
+  network_id = "${openstack_networking_network_v2.this.id}"
 }
