@@ -9,7 +9,7 @@ output "subnet_ids" {
 }
 
 output "network" {
-  value       = "${format("%s [id= %s]",openstack_networking_network_v2.this.name, openstack_networking_network_v2.this.id)}"
+  value       = "${openstack_networking_network_v2.this.name}"
   description = "The Network being created"
 }
 output "subnets" {
