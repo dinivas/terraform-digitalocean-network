@@ -6,7 +6,9 @@ resource "openstack_networking_network_v2" "this" {
   name           = "${var.network_name}"
   description    = "${var.network_description}"
   admin_state_up = "${var.network_admin_state_up}"
-  tags           = "${var.network_tags}"
+
+  // there are issues with tag "Neutronduplicate"
+  // tags           = "${var.network_tags}"
 }
 
 /******************************************

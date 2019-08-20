@@ -18,6 +18,7 @@ variable "network_admin_state_up" {
 variable "network_tags" {
   type        = "list"
   description = "A set of string tags for the network"
+  default     = []
 }
 
 variable "subnets" {
