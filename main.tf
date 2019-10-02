@@ -25,6 +25,11 @@ resource "openstack_networking_subnet_v2" "this" {
   enable_dhcp = "${lookup(var.subnets[count.index], "subnet_enable_dhcp", true)}"
   ip_version  = "${lookup(var.subnets[count.index], "subnet_ip_version")}"
 
+  allocation_pool {
+    start = "${lookup(var.subnets[count.index], "allocation_pool_start")}"
+    end   = "${lookup(var.subnets[count.index], "allocation_pool_end")}"
+  }
+
   // FIXME Tags not supported for subnet in OpenStack?
   // tags = "${split(",",lookup(var.subnets[count.index], "subnet_tags"))}"
 }

@@ -10,6 +10,8 @@ module "network" {
       subnet_cidr     = "10.10.10.0/24"
       subnet_ip_version = 4
       subnet_tags = "mysubnet, myproject, mytag"
-    },
+      allocation_pool_start = "10.10.10.2"
+      allocation_pool_end = "10.10.10.254"
+    }
   ]
 }
