@@ -1,35 +1,27 @@
+terraform {
+  required_providers {
+    digitalocean = {
+      source = "digitalocean/digitalocean"
+      version = "~> 2.0"
+    }
+  }
+}
+
 /******************************************
 	VPC configuration
  *****************************************/
 
-resource "openstack_networking_network_v2" "this" {
-  name           = "${var.network_name}"
-  description    = "${var.network_description}"
-  admin_state_up = "${var.network_admin_state_up}"
-
-  // there are issues with tag "Neutronduplicate"
-  // tags           = "${var.network_tags}"
+resource "digitalocean_vpc" "this" {
+  name        = var.vpc_name
+  description = var.vpc_description
+  region      = var.vpc_region
+  ip_range    = var.vpc_ip_range
 }
 
 /******************************************
 	Subnet configuration
+
+  NO SUBNET for Digital Ocean
  *****************************************/
 
-resource "openstack_networking_subnet_v2" "this" {
-  count = "${length(var.subnets)}"
 
-  name        = "${lookup(var.subnets[count.index], "subnet_name")}"
-  description = "${lookup(var.subnets[count.index], "subnet_description", "")}"
-  network_id  = "${openstack_networking_network_v2.this.id}"
-  cidr        = "${lookup(var.subnets[count.index], "subnet_cidr")}"
-  enable_dhcp = "${lookup(var.subnets[count.index], "subnet_enable_dhcp", true)}"
-  ip_version  = "${lookup(var.subnets[count.index], "subnet_ip_version")}"
-
-  allocation_pool {
-    start = "${lookup(var.subnets[count.index], "allocation_pool_start")}"
-    end   = "${lookup(var.subnets[count.index], "allocation_pool_end")}"
-  }
-
-  // FIXME Tags not supported for subnet in OpenStack?
-  // tags = "${split(",",lookup(var.subnets[count.index], "subnet_tags"))}"
-}
