@@ -3,8 +3,12 @@ output "vpc_id" {
   description = "The VPC id being created"
 }
 output "vpc_name" {
-  value       = digitalocean_vpc.this.urn
+  value       = digitalocean_vpc.this.name
   description = "The VPC name being created"
+}
+output "vpc_urn" {
+  value       = digitalocean_vpc.this.urn
+  description = "The VPC urn being created"
 }
 
 output "vpc_is_default" {
